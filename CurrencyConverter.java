@@ -67,7 +67,5 @@ public class CurrencyConverter {
         CurrencyConverter cc = new CurrencyConverter(url);
 
         cc.connection(url);
-
-        System.out.println("Hello!");
     }
 }
