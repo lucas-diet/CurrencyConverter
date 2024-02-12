@@ -68,7 +68,7 @@ public class CurrencyConverter {
         }
 
         try {
-            double amount = 1.0;
+            double amount = 100.0;
             String fromCurrency = "EUR";
             String toCurrency = "USD";
             double result = cc.convert(amount, fromCurrency, toCurrency);
