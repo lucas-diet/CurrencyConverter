@@ -1,71 +1,33 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.sql.*;
 
 
 public class CurrencyConverter {
-
-    private URL url;
-
-    public CurrencyConverter(URL url) {
-        this.url = url;
-    }
     
-    public void setURL(URL url) {
-        this.url = url;
-    }
 
-    public URL getURL() {
-        return this.url;
-    }
+    public static Connection connectionDB() {
+        Connection con = null;
 
-    public void connection(URL url) {
         try {
-
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-
-            connection.setRequestMethod("GET");
-
-            int  responseCode = connection.getResponseCode();
-            if (responseCode == HttpURLConnection.HTTP_OK) {
-                // Lesen der Antwort
-                BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-                String inputLine;
-                StringBuilder response = new StringBuilder();
-
-                while ((inputLine = in.readLine()) != null) {
-                    response.append(inputLine);
-                }
-                in.close();
-
-                 // Antwort ausgeben
-                 System.out.println("Daten von der Webseite:");
-                 System.out.println(response.toString());
-            } else {
-                System.out.println("Fehler beim Abrufen der Daten. Antwortcode: " + responseCode);
+            //Class.forName("org.postgresql.Driver");
+            String url = "jdbc:postgresql://localhost:5432/Currency"; // Ihre PostgreSQL-Datenbank-URL
+            String user = "lucas"; // Ihr PostgreSQL-Benutzername
+            String password = ""; // Ihr PostgreSQL-Passwort
+            con = DriverManager.getConnection(url, user, password);
+            // Tabelle für Wechselkurse erstellen, wenn sie nicht existiert
+            if (con != null) {
+                System.out.println("Verbunden!");
             }
-
-            // Verbindung schließen
-            connection.disconnect();
-
-        } catch (IOException e) {
+            else {
+                System.err.println("Verbindungsfehler!");
+            }
+        } catch (Exception e) {
             e.printStackTrace();
         }
+        return con;
     }
 
-    public static void main(String[] args) throws MalformedURLException {
-
-        String apiKey = "DEIN_API_SCHLÜSSEL";
-        String baseCurrency = "USD"; // Ausgangswährung
-        String targetCurrency = "EUR"; // Zielwährung
-        
-        URL url = new URL("https://v6.exchangeratesapi.io/latest?base=" + baseCurrency + "&symbols=" + targetCurrency + "&access_key=" + apiKey);
-
-        CurrencyConverter cc = new CurrencyConverter(url);
-
-        cc.connection(url);
+    public static void main(String[] args) throws SQLException {
+        connectionDB();
     }
+
 }
