@@ -26,7 +26,7 @@ public class Frame {
         try {
             Class.forName("org.postgresql.Driver");
             String url = "jdbc:postgresql://localhost:5432/Currency"; // Ihre PostgreSQL-Datenbank-URL
-            String user = "lucas"; // Ihr PostgreSQL-Benutzername
+            String user = "postgres"; // Ihr PostgreSQL-Benutzername
             String password = ""; // Ihr PostgreSQL-Passwort
             Connection con = DriverManager.getConnection(url, user, password);
 
