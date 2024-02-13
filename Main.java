@@ -2,7 +2,9 @@ import java.sql.SQLException;
 
 public class Main {
     public static void main(String[] args) throws ClassNotFoundException {
+        
         CurrencyConverter cc = new CurrencyConverter();
+        Frame f = new Frame();
 
         try {
             cc.updateCurrencys("Afghani", "AFN");
@@ -35,5 +37,10 @@ public class Main {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+
+        f.createFrame();
+
+
     }
 }
