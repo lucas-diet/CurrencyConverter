@@ -13,31 +13,48 @@ public class CurrencyConverter {
             String password = ""; // Ihr PostgreSQL-Passwort
             con = DriverManager.getConnection(url, user, password);
             createExchangeRateTable();
+            createCurrencyTable();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
     public void createExchangeRateTable() throws SQLException {
-        String sql = "create table if not exists exchange_rates (currency TEXT primary key, rate real)";
+        String sql = "create table if not exists exchange_rates (shortcut text primary key, rate real)";
         try (Statement stmt = con.createStatement()) {
             stmt.executeUpdate(sql);
         }
     }
 
-    public void updateExchangeRate(String currency, double rate) throws SQLException {
-        String sql = "insert into exchange_rates (currency, rate) values (?, ?) on conflict (currency) do update set rate = excluded.rate";
+    public void createCurrencyTable() throws SQLException {
+        String sql = "create table if not exists currencys (currency text, shortcut text primary key)";
+        try (Statement stmt = con.createStatement()) {
+            stmt.executeUpdate(sql);
+        }
+    }
+
+    public void updateExchangeRate(String shortcut, double rate) throws SQLException {
+        String sql = "insert into exchange_rates (shortcut, rate) values (?, ?) on conflict (shortcut) do update set rate = excluded.rate";
         try (PreparedStatement pstmt = con.prepareStatement(sql)) {
-            pstmt.setString(1, currency);
+            pstmt.setString(1, shortcut);
             pstmt.setDouble(2, rate);
             pstmt.executeUpdate();
         }
     }
 
-    public double getExchangeRate(String currency) throws SQLException {
-        String sql = "select rate from exchange_rates where currency = ?";
+    public void updateCurrencys(String currency, String shortcut) throws SQLException {
+        String sql = "insert into currencys (currency, shortcut) values (?, ?) on conflict do nothing";
         try (PreparedStatement pstmt = con.prepareStatement(sql)) {
             pstmt.setString(1, currency);
+            pstmt.setString(2, shortcut);
+            pstmt.executeUpdate();
+        }
+    }
+
+    public double getExchangeRate(String shortcut) throws SQLException {
+        String sql = "select rate from exchange_rates where shortcut = ?";
+        try (PreparedStatement pstmt = con.prepareStatement(sql)) {
+            pstmt.setString(1, shortcut);
             try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) {
                     return rs.getDouble("rate");
@@ -50,8 +67,8 @@ public class CurrencyConverter {
     }
 
     public double convert(double amount, String fromCurrency, String toCurrency) throws SQLException {
-        double fromRate = getExchangeRate(fromCurrency);
+        //double fromRate = getExchangeRate(fromCurrency);
         double toRate = getExchangeRate(toCurrency);
-        return amount * (fromRate / toRate);
+        return amount * toRate;
     }
 }
