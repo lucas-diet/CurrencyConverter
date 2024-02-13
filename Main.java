@@ -5,14 +5,23 @@ public class Main {
         CurrencyConverter cc = new CurrencyConverter();
 
         try {
+            cc.updateCurrencys("Afghani", "AFN");
+            cc.updateCurrencys("Albanischer Lek", "ALL");
+            cc.updateCurrencys("Algerischer Dinar", "DZD");
+            cc.updateCurrencys("Antillen-Gulden", "ANG");
+
             cc.updateCurrencys("Euro", "EUR");
             cc.updateCurrencys("US-Dollar", "USD");
-            cc.updateCurrencys("Afghani", "AFN");
+            
 
+            cc.updateExchangeRate("ALL", 103.92);
+            cc.updateExchangeRate("AFN", 79.40);
+            cc.updateExchangeRate("DZD", 144.73);
+            cc.updateExchangeRate("ANG", 1.94);
 
             cc.updateExchangeRate("EUR", 1.0);
             cc.updateExchangeRate("USD", 1.08);
-            cc.updateExchangeRate("AFN", 79.40);
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }
