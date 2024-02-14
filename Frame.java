@@ -6,6 +6,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import java.awt.*;
 
 public class Frame {
 
@@ -17,33 +18,55 @@ public class Frame {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(null);
 
+        JLabel label1 = new JLabel("Converter");
+        label1.setBounds(10,10,110,30);
+        frame.add(label1);
+        label1.setFont(new Font("Arial", Font.PLAIN, 24));
+
         dropdown1 = new JComboBox<>();
-        dropdown1.setBounds(140,0,250,50);
+        dropdown1.setBounds(140,40,250,50);
         frame.add(dropdown1);
 
         JLabel fromCurrency = new JLabel("From Currency");
-        fromCurrency.setBounds(10,0,100,50);
+        fromCurrency.setBounds(10,40,100,50);
         frame.add(fromCurrency);
 
         dropdown2 = new JComboBox<>();
-        dropdown2.setBounds(140,50,250,50);
+        dropdown2.setBounds(140,90,250,50);
         frame.add(dropdown2);
 
         JLabel toCurrency = new JLabel("To Currency");
-        toCurrency.setBounds(10,50,100,50);
+        toCurrency.setBounds(10,90,100,50);
         frame.add(toCurrency);
 
         JTextField input = new JTextField();
-        input.setBounds(10,110,100,30);
+        input.setBounds(10,150,100,30);
         frame.add(input);
 
         JLabel result = new JLabel();
-        result.setBounds(140,110,250,30);
+        result.setBounds(140,150,250,30);
         frame.add(result);
 
         JButton btn_calc = new JButton("Berechnen");
-        btn_calc.setBounds(10,150,100,30);
+        btn_calc.setBounds(10,190,100,30);
         frame.add(btn_calc);
+
+        JLabel label2 = new JLabel("Add Currency");
+        label2.setBounds(10,250,150,30);
+        frame.add(label2);
+        label2.setFont(new Font("Arial", Font.PLAIN, 24));
+
+        JTextField newCurrency = new JTextField();
+        newCurrency.setBounds(10,290,100,30);
+        frame.add(newCurrency);
+
+        JTextField newShortcut = new JTextField();
+        newShortcut.setBounds(150,290,100,30);
+        frame.add(newShortcut);
+
+        JButton btn_add = new JButton("Add");
+        btn_add.setBounds(10,330,100,30);
+        frame.add(btn_add);
 
         try {
             Class.forName("org.postgresql.Driver");
