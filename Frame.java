@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.sql.*;
 
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -35,6 +36,14 @@ public class Frame {
         JTextField input = new JTextField();
         input.setBounds(10,110,100,30);
         frame.add(input);
+
+        JLabel result = new JLabel();
+        result.setBounds(140,110,250,30);
+        frame.add(result);
+
+        JButton btn_calc = new JButton("Berechnen");
+        btn_calc.setBounds(10,150,100,30);
+        frame.add(btn_calc);
 
         try {
             Class.forName("org.postgresql.Driver");
