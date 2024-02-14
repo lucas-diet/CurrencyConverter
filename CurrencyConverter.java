@@ -50,7 +50,7 @@ public class CurrencyConverter {
             pstmt.executeUpdate();
         }
     }
-
+    //ToDo
     public double getExchangeRate(String shortcut) throws SQLException {
         String sql = "select rate from exchange_rates where shortcut = ?";
         try (PreparedStatement pstmt = con.prepareStatement(sql)) {
@@ -66,9 +66,39 @@ public class CurrencyConverter {
         }
     }
 
-    public double convert(double amount, String fromCurrency, String toCurrency) throws SQLException {
+    public double convert(double amount, String toCurrency) throws SQLException {
         //double fromRate = getExchangeRate(fromCurrency);
         double toRate = getExchangeRate(toCurrency);
         return amount * toRate;
+    }
+
+    public String getCurrency(String currency) throws SQLException {
+        String sql = "select * from currencys as cu, exchange_rates as er where cu.shortcut = er.shortcut and cu.currency = ?";
+        try (PreparedStatement pstmt = con.prepareStatement(sql)) {
+            pstmt.setString(1, currency);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getString("currency");
+                }
+                else {
+                    throw new IllegalArgumentException("Invalid");
+                }
+            }
+        }
+    }
+
+    public String getISO(String currency) throws SQLException {
+        String sql = "select * from currencys as cu, exchange_rates as er where cu.shortcut = er.shortcut and cu.currency = ?";
+        try (PreparedStatement pstmt = con.prepareStatement(sql)) {
+            pstmt.setString(1, currency);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getString("shortcut");
+                }
+                else {
+                    throw new IllegalArgumentException("Invalid");
+                }
+            }
+        }
     }
 }

@@ -59,9 +59,25 @@ public class Frame {
                     String fromItm = String.valueOf(dropdown1.getSelectedItem());
                     String toItm = String.valueOf(dropdown2.getSelectedItem());
                     
+                    CurrencyConverter cc = new CurrencyConverter();
+                    String toCurrency = cc.getCurrency(toItm);
+                    String toISO = cc.getISO(toCurrency);
+
+                    double x = cc.convert(amount, toISO);
+                    result.setText(x + " " + toISO);
+
+                    System.out.println(toCurrency);
+                    System.out.println(toISO);
                     System.out.println(amount);
+
+                    
+
                 } catch (NumberFormatException e) {
                     System.out.println("Invalid double input");
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
                 } 
             }
         });
