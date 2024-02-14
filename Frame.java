@@ -7,6 +7,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class Frame {
 
@@ -50,6 +52,19 @@ public class Frame {
         JButton btn_calc = new JButton("Berechnen");
         btn_calc.setBounds(10,190,100,30);
         frame.add(btn_calc);
+        btn_calc.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ae) {
+                try {
+                    double amount = Integer.valueOf(input.getText());
+                    String fromItm = String.valueOf(dropdown1.getSelectedItem());
+                    String toItm = String.valueOf(dropdown2.getSelectedItem());
+                    
+                    System.out.println(amount);
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid double input");
+                } 
+            }
+        });
 
         JLabel label2 = new JLabel("Add Currency");
         label2.setBounds(10,250,150,30);
@@ -67,6 +82,11 @@ public class Frame {
         JButton btn_add = new JButton("Add");
         btn_add.setBounds(10,330,100,30);
         frame.add(btn_add);
+        btn_add.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ae) {
+                System.out.println("clicked");
+            }
+        });
 
         try {
             Class.forName("org.postgresql.Driver");
@@ -83,8 +103,8 @@ public class Frame {
             while (rs.next()) {
                 String currency = rs.getString("currency");
                 String shortcut = rs.getString("shortcut");
-                fromDataList.add(currency + " - " + shortcut);
-                toDataList.add(currency + " - " + shortcut);
+                fromDataList.add(currency);
+                toDataList.add(currency);
             }
 
             for (String currency : fromDataList) {
