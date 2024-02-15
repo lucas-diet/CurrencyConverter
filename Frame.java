@@ -25,9 +25,10 @@ public class Frame {
         frame.add(label1);
         label1.setFont(new Font("Arial", Font.PLAIN, 24));
 
-        dropdown1 = new JComboBox<>();
-        dropdown1.setBounds(140,40,250,50);
-        frame.add(dropdown1);
+        JLabel from = new JLabel("Euro");
+        //dropdown1 = new JComboBox<>();
+        from.setBounds(140,40,250,50);
+        frame.add(from);
 
         JLabel fromCurrency = new JLabel("From Currency");
         fromCurrency.setBounds(10,40,100,50);
@@ -56,11 +57,14 @@ public class Frame {
             public void actionPerformed(ActionEvent ae) {
                 try {
                     double amount = Integer.valueOf(input.getText());
-                    String fromItm = String.valueOf(dropdown1.getSelectedItem());
+                    //String fromItm = String.valueOf(dropdown1.getSelectedItem());
                     String toItm = String.valueOf(dropdown2.getSelectedItem());
                     
                     CurrencyConverter cc = new CurrencyConverter();
+                    //String fromCurrency = cc.getCurrency(fromItm);
                     String toCurrency = cc.getCurrency(toItm);
+
+                    //String fromISO = cc.getISO(fromCurrency);
                     String toISO = cc.getISO(toCurrency);
 
                     double x = cc.convert(amount, toISO);
@@ -69,8 +73,6 @@ public class Frame {
                     System.out.println(toCurrency);
                     System.out.println(toISO);
                     System.out.println(amount);
-
-                    
 
                 } catch (NumberFormatException e) {
                     System.out.println("Invalid double input");
@@ -123,9 +125,9 @@ public class Frame {
                 toDataList.add(currency);
             }
 
-            for (String currency : fromDataList) {
-                dropdown1.addItem(currency);
-            }
+            //for (String currency : fromDataList) {
+            //    dropdown1.addItem(currency);
+            //}
             for (String currency : toDataList) {
                 dropdown2.addItem(currency);
             }

@@ -28,15 +28,15 @@ public class Main {
             e.printStackTrace();
         }
 
-        //try {
-            //double amount = 5;
-            //String fromCurrency = "EUR";
-            //String toCurrency = "USD";
-            //double result = cc.convert(amount, fromCurrency, toCurrency);
-            //System.out.println(amount + " " + fromCurrency + " entsprechen " + result + " " + toCurrency + "\n");
-        //} catch (SQLException e) {
-          //  e.printStackTrace();
-        //}
+        try {
+            double amount = 1;
+            String fromCurrency = "USD";
+            String toCurrency = "EUR";
+            double result = cc.convert(amount, toCurrency);
+            System.out.println(amount + " " + fromCurrency + " entsprechen " + result + " " + toCurrency + "\n");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
 
         f.createFrame();
