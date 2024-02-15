@@ -70,10 +70,6 @@ public class Frame {
                     double x = cc.convert(amount, toISO);
                     result.setText(x + " " + toISO);
 
-                    System.out.println(toCurrency);
-                    System.out.println(toISO);
-                    System.out.println(amount);
-
                 } catch (NumberFormatException e) {
                     System.out.println("Invalid double input");
                 } catch (SQLException e) {
@@ -96,6 +92,10 @@ public class Frame {
         JTextField newShortcut = new JTextField();
         newShortcut.setBounds(150,290,100,30);
         frame.add(newShortcut);
+
+        JTextField newRate = new JTextField();
+        newRate.setBounds(290,290,100,30);
+        frame.add(newRate);
 
         JButton btn_add = new JButton("Add");
         btn_add.setBounds(10,330,100,30);
