@@ -14,6 +14,12 @@ public class Frame {
 
     private JComboBox<String> dropdown2;
 
+    public Connection connectionDB(String url, String user, String password) throws ClassNotFoundException, SQLException {
+        Class.forName("org.postgresql.Driver");
+        Connection con = DriverManager.getConnection(url, user, password);
+        return con;
+    }
+
     public void createFrame() throws ClassNotFoundException {
         JFrame frame = new JFrame("Currency Converter");
         frame.setSize(400,400);
@@ -116,11 +122,7 @@ public class Frame {
                     newShortcut.setText("");
                     newRate.setText("");
                     
-                    Class.forName("org.postgresql.Driver");
-                    String url = "jdbc:postgresql://localhost:5432/Currency"; // Ihre PostgreSQL-Datenbank-URL
-                    String user = "postgres"; // Ihr PostgreSQL-Benutzername
-                    String password = ""; // Ihr PostgreSQL-Passwort
-                    Connection con = DriverManager.getConnection(url, user, password);
+                    Connection con = connectionDB("jdbc:postgresql://localhost:5432/Currency", "postgres", "");
 
                     Statement stmt = con.createStatement();
                     ResultSet rs = stmt.executeQuery("select currency, shortcut from currencys");
@@ -148,11 +150,7 @@ public class Frame {
         });
 
         try {
-            Class.forName("org.postgresql.Driver");
-            String url = "jdbc:postgresql://localhost:5432/Currency"; // Ihre PostgreSQL-Datenbank-URL
-            String user = "postgres"; // Ihr PostgreSQL-Benutzername
-            String password = ""; // Ihr PostgreSQL-Passwort
-            Connection con = DriverManager.getConnection(url, user, password);
+            Connection con = connectionDB("jdbc:postgresql://localhost:5432/Currency", "postgres", "");
 
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery("select currency, shortcut from currencys");

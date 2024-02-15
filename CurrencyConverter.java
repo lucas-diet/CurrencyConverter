@@ -59,7 +59,7 @@ public class CurrencyConverter {
                     return rs.getDouble("rate");
                 }
                 else {
-                    throw new IllegalArgumentException("Ungültige Währung");
+                    throw new IllegalArgumentException("Invalid currency");
                 }
             }
         }
