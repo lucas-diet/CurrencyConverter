@@ -12,7 +12,7 @@ import java.awt.event.ActionListener;
 
 public class Frame {
 
-    private JComboBox<String> dropdown1, dropdown2;
+    private JComboBox<String> dropdown2;
 
     public void createFrame() throws ClassNotFoundException {
         JFrame frame = new JFrame("Currency Converter");
@@ -50,13 +50,13 @@ public class Frame {
         result.setBounds(140,150,250,30);
         frame.add(result);
 
-        JButton btn_calc = new JButton("Berechnen");
+        JButton btn_calc = new JButton("Calculate");
         btn_calc.setBounds(10,190,100,30);
         frame.add(btn_calc);
         btn_calc.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
                 try {
-                    double amount = Integer.valueOf(input.getText());
+                    double amount = Double.valueOf(input.getText());
                     //String fromItm = String.valueOf(dropdown1.getSelectedItem());
                     String toItm = String.valueOf(dropdown2.getSelectedItem());
                     
@@ -103,6 +103,48 @@ public class Frame {
         btn_add.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
                 System.out.println("clicked");
+                try {
+                    String currencyInput = newCurrency.getText();
+                    String isoInput = newShortcut.getText();
+                    double rateInput = Double.valueOf(newRate.getText());
+                    
+                    CurrencyConverter cc = new CurrencyConverter();
+
+                    cc.updateCurrencys(currencyInput, isoInput);
+                    cc.updateExchangeRate(isoInput, rateInput);
+
+                    newCurrency.setText("");
+                    newShortcut.setText("");
+                    newRate.setText("");
+                    
+                    Class.forName("org.postgresql.Driver");
+                    String url = "jdbc:postgresql://localhost:5432/Currency"; // Ihre PostgreSQL-Datenbank-URL
+                    String user = "postgres"; // Ihr PostgreSQL-Benutzername
+                    String password = ""; // Ihr PostgreSQL-Passwort
+                    Connection con = DriverManager.getConnection(url, user, password);
+
+                    Statement stmt = con.createStatement();
+                    ResultSet rs = stmt.executeQuery("select currency, shortcut from currencys");
+
+                    ArrayList<String> toDataList = new ArrayList<>();
+                    while (rs.next()) {
+                        String currency = rs.getString("currency");
+                        toDataList.add(currency);
+                    }
+                    for (String currency : toDataList) {
+                        dropdown2.addItem(currency);
+                    }
+                    rs.close();
+                    stmt.close();
+                    con.close();
+                    
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid double input"); 
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -120,21 +162,16 @@ public class Frame {
             ArrayList<String> toDataList = new ArrayList<>();
             while (rs.next()) {
                 String currency = rs.getString("currency");
-                String shortcut = rs.getString("shortcut");
                 fromDataList.add(currency);
                 toDataList.add(currency);
             }
-
-            //for (String currency : fromDataList) {
-            //    dropdown1.addItem(currency);
-            //}
             for (String currency : toDataList) {
                 dropdown2.addItem(currency);
             }
-
             rs.close();
             stmt.close();
             con.close();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
