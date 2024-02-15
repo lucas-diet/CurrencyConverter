@@ -49,7 +49,7 @@ public class CurrencyConverter {
             pstmt.executeUpdate();
         }
     }
-    //ToDo
+    
     public double getExchangeRate(String shortcut) throws SQLException {
         String sql = "select rate from exchange_rates where shortcut = ?";
         try (PreparedStatement pstmt = con.prepareStatement(sql)) {
@@ -66,7 +66,6 @@ public class CurrencyConverter {
     }
 
     public double convert(double amount, String toCurrency) throws SQLException {
-        //double fromRate = getExchangeRate(fromCurrency);
         double toRate = getExchangeRate(toCurrency);
         return amount * toRate;
     }
