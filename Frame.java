@@ -102,7 +102,6 @@ public class Frame {
         frame.add(btn_add);
         btn_add.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
-                System.out.println("clicked");
                 try {
                     String currencyInput = newCurrency.getText();
                     String isoInput = newShortcut.getText();
