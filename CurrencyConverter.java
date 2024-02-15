@@ -1,6 +1,5 @@
 import java.sql.*;
 
-
 public class CurrencyConverter {
     
     private Connection con;
