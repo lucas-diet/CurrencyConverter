@@ -168,7 +168,7 @@ public class Frame {
 
             public void focusLost(FocusEvent fe) {
                 if (newRate.getText().isEmpty()) {
-                    newRate.setForeground(Color.GRAY);
+                    newRate.setForeground(Color.BLACK);
                     newRate.setText("Rate");
                 }
             }
