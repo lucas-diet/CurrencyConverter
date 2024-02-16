@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Properties;
 import java.sql.*;
 
 import javax.swing.JButton;
@@ -11,14 +12,38 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.io.FileInputStream;
+import java.io.IOException;
 
 public class Frame {
 
     private JComboBox<String> dropdown2;
 
-    public Connection connectionDB(String url, String user, String password) throws ClassNotFoundException, SQLException {
+    public String[] getDatabaseData() {
+        Properties properties = new Properties();
+        try {
+            FileInputStream fs = new FileInputStream("config.properties");
+            properties.load(fs);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        String url = properties.getProperty("database.url");
+        String user = properties.getProperty("database.user");
+        String pw = properties.getProperty("database.password");
+        
+        String[] data = new String[3];
+        data[0] = url;
+        data[1] = user;
+        data[2] = pw;
+        
+        return data;
+    }
+
+    public Connection connectionDB(String url, String user, String pw) throws ClassNotFoundException, SQLException {
         Class.forName("org.postgresql.Driver");
-        Connection con = DriverManager.getConnection(url, user, password);
+        
+        Connection con = DriverManager.getConnection(url, user, pw);
         return con;
     }
 
@@ -100,6 +125,9 @@ public class Frame {
                 } catch (SQLException e) {
                     e.printStackTrace();
                 } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 } 
             }
@@ -197,8 +225,12 @@ public class Frame {
                     newShortcut.setForeground(Color.GRAY);
                     newRate.setText("Rate");
                     newRate.setForeground(Color.GRAY);
+
+                    String url = getDatabaseData()[0];
+                    String user = getDatabaseData()[1];
+                    String pw = getDatabaseData()[2];
                     
-                    Connection con = connectionDB("jdbc:postgresql://localhost:5432/Currency", "postgres", "");
+                    Connection con = connectionDB(url, user, pw);
 
                     Statement stmt = con.createStatement();
                     ResultSet rs = stmt.executeQuery("select currency, shortcut from currencys");
@@ -221,12 +253,19 @@ public class Frame {
                     e.printStackTrace();
                 } catch (SQLException e) {
                     e.printStackTrace();
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
                 }
             }
         });
 
         try {
-            Connection con = connectionDB("jdbc:postgresql://localhost:5432/Currency", "postgres", "");
+            String url = getDatabaseData()[0];
+            String user = getDatabaseData()[1];
+            String pw = getDatabaseData()[2];
+            
+            Connection con = connectionDB(url, user, pw);
 
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery("select currency, shortcut from currencys");

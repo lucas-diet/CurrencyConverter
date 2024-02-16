@@ -1,16 +1,25 @@
 import java.sql.*;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Properties;
 
 public class CurrencyConverter {
     
     private Connection con;
 
-    public CurrencyConverter() throws ClassNotFoundException {
+    public CurrencyConverter() throws ClassNotFoundException, IOException {
+        Properties properties = new Properties();
+
         try {
             Class.forName("org.postgresql.Driver");
-            String url = "jdbc:postgresql://localhost:5432/Currency"; // Ihre PostgreSQL-Datenbank-URL
-            String user = "postgres"; // Ihr PostgreSQL-Benutzername
-            String password = ""; // Ihr PostgreSQL-Passwort
-            con = DriverManager.getConnection(url, user, password);
+            FileInputStream fs = new FileInputStream("config.properties");
+            properties.load(fs);
+            fs.close();
+
+            String url = properties.getProperty("database.url");
+            String user = properties.getProperty("database.user");
+            String pw = properties.getProperty("database.password");
+            con = DriverManager.getConnection(url, user, pw);
             createExchangeRateTable();
             createCurrencyTable();
         } catch (SQLException e) {
