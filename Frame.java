@@ -162,13 +162,13 @@ public class Frame {
             public void focusGained(FocusEvent fe) {
                 if (newRate.getText().equals("Rate")) {
                     newRate.setText("");
-                    newRate.setForeground(Color.GRAY);
+                    newRate.setForeground(Color.BLACK);
                 }
             }
 
             public void focusLost(FocusEvent fe) {
                 if (newRate.getText().isEmpty()) {
-                    newRate.setForeground(Color.BLACK);
+                    newRate.setForeground(Color.GRAY);
                     newRate.setText("Rate");
                 }
             }
@@ -191,9 +191,12 @@ public class Frame {
                     cc.updateCurrencys(currencyInput, isoInput);
                     cc.updateExchangeRate(isoInput, rateInput);
 
-                    newCurrency.setText("");
-                    newShortcut.setText("");
-                    newRate.setText("");
+                    newCurrency.setText("Currency");
+                    newCurrency.setForeground(Color.GRAY);
+                    newShortcut.setText("ISO");
+                    newShortcut.setForeground(Color.GRAY);
+                    newRate.setText("Rate");
+                    newRate.setForeground(Color.GRAY);
                     
                     Connection con = connectionDB("jdbc:postgresql://localhost:5432/Currency", "postgres", "");
 
