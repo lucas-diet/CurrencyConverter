@@ -9,6 +9,8 @@ import javax.swing.JTextField;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 
 public class Frame {
 
@@ -91,16 +93,70 @@ public class Frame {
         frame.add(label2);
         label2.setFont(new Font("Arial", Font.PLAIN, 24));
 
-        JTextField newCurrency = new JTextField();
+        JTextField newCurrency = new JTextField("Currency");
         newCurrency.setBounds(10,290,100,30);
+        newCurrency.setForeground(Color.GRAY);
+
+        newCurrency.addFocusListener(new FocusListener() {
+            public void focusGained(FocusEvent fe) {
+                if (newCurrency.getText().equals("Currency")) {
+                    newCurrency.setText("");
+                    newCurrency.setForeground(Color.BLACK);
+                }
+            }
+
+            public void focusLost(FocusEvent fe) {
+                if (newCurrency.getText().isEmpty()) {
+                    newCurrency.setForeground(Color.GRAY);
+                    newCurrency.setText("Currency");
+                }
+            }
+        });
+
         frame.add(newCurrency);
 
-        JTextField newShortcut = new JTextField();
+        JTextField newShortcut = new JTextField("ISO");
         newShortcut.setBounds(150,290,100,30);
+        newShortcut.setForeground(Color.GRAY);
+
+        newShortcut.addFocusListener(new FocusListener() {
+            public void focusGained(FocusEvent fe) {
+                if (newShortcut.getText().equals("ISO")) {
+                    newShortcut.setText("");
+                    newShortcut.setForeground(Color.BLACK);
+                }
+            }
+
+            public void focusLost(FocusEvent fe) {
+                if (newShortcut.getText().isEmpty()) {
+                    newShortcut.setForeground(Color.GRAY);
+                    newShortcut.setText("ISO");
+                }
+            }
+        });
+
         frame.add(newShortcut);
 
-        JTextField newRate = new JTextField();
+        JTextField newRate = new JTextField("Rate");
         newRate.setBounds(290,290,100,30);
+        newRate.setForeground(Color.GRAY);
+
+        newRate.addFocusListener(new FocusListener() {
+            public void focusGained(FocusEvent fe) {
+                if (newRate.getText().equals("Rate")) {
+                    newRate.setText("");
+                    newRate.setForeground(Color.GRAY);
+                }
+            }
+
+            public void focusLost(FocusEvent fe) {
+                if (newRate.getText().isEmpty()) {
+                    newRate.setForeground(Color.GRAY);
+                    newRate.setText("Rate");
+                }
+            }
+        });
+
         frame.add(newRate);
 
         JButton btn_add = new JButton("Add");
