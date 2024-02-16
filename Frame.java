@@ -52,6 +52,7 @@ public class Frame {
 
         JTextField input = new JTextField("Amount");
         input.setBounds(10,150,100,30);
+        input.setForeground(Color.GRAY);
         input.addFocusListener(new FocusListener() {
             public void focusGained(FocusEvent fe) {
                 if (input.getText().equals("Amount")) {
