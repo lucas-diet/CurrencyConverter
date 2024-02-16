@@ -50,8 +50,24 @@ public class Frame {
         toCurrency.setBounds(10,90,100,50);
         frame.add(toCurrency);
 
-        JTextField input = new JTextField();
+        JTextField input = new JTextField("Amount");
         input.setBounds(10,150,100,30);
+        input.addFocusListener(new FocusListener() {
+            public void focusGained(FocusEvent fe) {
+                if (input.getText().equals("Amount")) {
+                    input.setText("");
+                    input.setForeground(Color.BLACK);
+                }
+            }
+
+            public void focusLost(FocusEvent fe) {
+                if (input.getText().isEmpty()) {
+                    input.setForeground(Color.GRAY);
+                    input.setText("Amount");
+                }
+            }
+        });
+
         frame.add(input);
 
         JLabel result = new JLabel();
