@@ -26,7 +26,7 @@ Um eine neue Währung hinzuzufügen, starten Sie das Programm und geben Sie in d
 
 - Currency -> Name der Währung (z. B.: US-Dollar)
 - ISO -> Abkürzung (z. B.: USD)
-- Rate -> Umrechnungskurs für 1 EUR (z. B.: 1,09 USD)
+- Rate -> Umrechnungskurs für 1 EUR (z. B.: 1.09 USD)
 
 -------------------------------------------------------------------------
 
