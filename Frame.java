@@ -127,7 +127,6 @@ public class Frame {
                 } catch (ClassNotFoundException e) {
                     e.printStackTrace();
                 } catch (IOException e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 } 
             }
@@ -254,7 +253,6 @@ public class Frame {
                 } catch (SQLException e) {
                     e.printStackTrace();
                 } catch (IOException e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
             }
