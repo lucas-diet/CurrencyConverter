@@ -17,7 +17,7 @@ import java.io.IOException;
 
 public class Frame {
 
-    private JComboBox<String> dropdown1, dropdown2, dropdown3;
+    private JComboBox<String> dropdown2;
 
     public String[] getDatabaseData() {
         Properties properties = new Properties();
@@ -58,10 +58,9 @@ public class Frame {
         frame.add(label1);
         label1.setFont(new Font("Arial", Font.PLAIN, 24));
 
-        //JLabel from = new JLabel("Euro");
-        dropdown1 = new JComboBox<>();
-        dropdown1.setBounds(140,40,250,50);
-        frame.add(dropdown1);
+        JLabel from = new JLabel("Euro");
+        from.setBounds(140,40,250,50);
+        frame.add(from);
 
         JLabel fromCurrency = new JLabel("From Currency");
         fromCurrency.setBounds(10,40,100,50);
@@ -137,11 +136,6 @@ public class Frame {
         frame.add(label2);
         label2.setFont(new Font("Arial", Font.PLAIN, 24));
         
-        String addChoice[] = {"from", "to"};
-        dropdown3 = new JComboBox<>(addChoice);
-        dropdown3.setBounds(180,250,80,30);
-        frame.add(dropdown3);
-
         JTextField newCurrency = new JTextField("Currency");
         newCurrency.setBounds(10,290,100,30);
         newCurrency.setForeground(Color.GRAY);
